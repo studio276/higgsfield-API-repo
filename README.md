@@ -1,8 +1,9 @@
-# Higgsfield Seedance 2.5 Example
+# Higgsfield CLI Example
 
-Minimal TypeScript example that calls the Higgsfield API to generate a video with
-[`bytedance/seedance-2.5/text-to-video`](https://console.higgsfield.ai/models/bytedance/seedance-2.5/text-to-video/api-reference)
-using the official [`@higgsfield/client`](https://github.com/higgsfield-ai/higgsfield-js) SDK.
+Minimal TypeScript CLI that calls the Higgsfield API to generate videos (via
+[`bytedance/seedance-2.5/text-to-video`](https://console.higgsfield.ai/models/bytedance/seedance-2.5/text-to-video/api-reference))
+or images (via `higgsfield-ai/soul/v2/standard`) using the official
+[`@higgsfield/client`](https://github.com/higgsfield-ai/higgsfield-js) SDK.
 
 ## Prerequisites
 
@@ -35,13 +36,33 @@ using the official [`@higgsfield/client`](https://github.com/higgsfield-ai/higgs
 ## Run
 
 ```bash
-npm start
+npm start -- --prompt "A cinematic scene at sunset"
 ```
 
-This sends a **billable** generation request (prompt: "A cinematic scene at sunset",
-5s, 720p, 16:9) and waits for it to complete. On success it prints the generated
-video URL. Failed, canceled, or content-moderated ("nsfw") requests are reported as
-errors rather than treated as success.
+Every run sends a **billable** generation request and waits for it to complete.
+On success it prints the generated video or image URL(s). Failed or
+content-moderated ("nsfw") requests are reported as errors rather than treated
+as success.
+
+Run `npm start -- --help` to see all options. Key flags:
+
+- `--prompt <text>` — required.
+- `--model <id>` — `video` (default, Seedance 2.5) or `image` (Soul), or a raw
+  Higgsfield model endpoint string.
+- Video only: `--duration <seconds>` (default 5), `--resolution <480p|720p|1080p>`
+  (default 720p), `--aspect-ratio <ratio>` (default 16:9).
+- Image only: `--size <WxH>` (e.g. `1536x1536`), `--quality <720p|1080p>`,
+  `--batch-size <1|4>`.
+
+Examples:
+
+```bash
+# Video (explicit flags, same as the defaults)
+npm start -- --prompt "A cinematic scene at sunset" --model video --duration 5 --resolution 720p --aspect-ratio 16:9
+
+# Image
+npm start -- --prompt "Editorial portrait in soft daylight" --model image --size 1536x1536 --quality 1080p
+```
 
 ## Files
 
