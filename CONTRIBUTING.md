@@ -9,6 +9,11 @@ configure your own `.env.local` with your own Higgsfield credentials. Never
 commit `.env.local` or paste real credentials into a PR, issue, or commit
 message.
 
+Note that `.env.local` only holds credentials (`HF_CREDENTIALS`) — it's not
+where you set a prompt or pick a model. Those are CLI flags now
+(`npm start -- --prompt "..." --model video|image`); see `npm start -- --help`
+or the README for the full flag list.
+
 ## Making changes
 
 1. Create a branch off `main`.
